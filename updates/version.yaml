@@ -18,3 +18,5 @@
 1.0.7:
     - 'Updated table pensoft_knowledgelibrary_formats'
     - builder_table_update_pensoft_knowledgelibrary_formats_2.php
+1.0.8:
+    - 'Composer'
