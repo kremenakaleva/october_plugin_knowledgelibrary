@@ -38,4 +38,22 @@ class Data extends Model
         'format' => 'Pensoft\Knowledgelibrary\Models\Format',
         'project' => 'Pensoft\Knowledgelibrary\Models\Project',
     ];
+
+    public function scopeSearchTerms($query, $searchTerms)
+    {
+        if (!empty($searchTerms) && is_array($searchTerms)) {
+            foreach ($searchTerms as $term) {
+                $query->orWhere('title', 'ILIKE', "%{$term}%");
+                $query->orWhere('authors', 'ILIKE', "%{$term}%");
+                $query->orWhere('volume', 'ILIKE', "%{$term}%");
+                $query->orWhere('journal', 'ILIKE', "%{$term}%");
+                $query->orWhere('doi', 'ILIKE', "%{$term}%");
+                $query->orWhere('status', 'ILIKE', "%{$term}%");
+                $query->orWhere('place', 'ILIKE', "%{$term}%");
+                $query->orWhere('source', 'ILIKE', "%{$term}%");
+                $query->orWhere('web_page', 'ILIKE', "%{$term}%");
+            }
+        }
+        return $query;
+    }
 }
