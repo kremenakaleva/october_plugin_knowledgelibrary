@@ -56,4 +56,33 @@ class Data extends Model
         }
         return $query;
     }
+
+    public function getPrettyAuthorsAttribute()
+    {
+
+        $pMaxCount = 3;
+        if($this->authors != ''){
+            $this->authors = str_replace(',', ', ', $this->authors);
+            $lData = explode(', ', $this->authors, $pMaxCount);
+            $lAllData = explode(', ', $this->authors);
+            if($lAllData > $pMaxCount){
+                $lDiff = (int)count($lAllData) - (int)count($lData);
+                $lDataStr = '';
+                foreach ($lData as $k => $lStr){
+                    if($k < ($pMaxCount - 1) ){
+                        $lDataStr .= $lStr.", ";
+                    }
+                }
+                $lMore = '';
+                if($lDiff > 0){
+                    $lMore = '<span class="view_more hide-' . $this->id . '"> +' .($lDiff + 1 ). ' more</span> <span class="toogle-' . $this->id . '" style="display: none">' . $lData[$pMaxCount - 1] . '</span> <a href="javascript: void(0);" class="view_more_authors" onclick="expand(this, \'' . $this->id . '\');">View all</a>';
+                }
+
+                return $lDataStr . $lMore .' <br>';
+            }else{
+                return $this->authors;
+            }
+
+        }
+    }
 }
